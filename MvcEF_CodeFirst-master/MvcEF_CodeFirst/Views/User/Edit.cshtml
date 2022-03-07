@@ -1,0 +1,47 @@
+﻿@model Person
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="input-group">
+
+        <span class="input-group-addon">Name</span>
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Name", @required = "required" })
+
+    </div>
+    <br />
+    <div class="input-group">
+
+        <span class="input-group-addon">Surname</span>
+        @Html.TextAreaFor(x => x.Surname, new { @class = "form-control", placeholder = " surname", @required = "required" })
+
+    </div>
+    <br />
+    <div class="input-group">
+
+        <span class="input-group-addon">Age</span>
+        @Html.TextBoxFor(x => x.Age, new { @class = "form-control", placeholder = "Age", @type = "number", min = 18 })
+
+    </div>
+    <br />
+    <div class="input-group">
+
+        
+        <input type="submit" value="Edit" class="btn btn-default" />
+
+    </div>
+}
+
+<br />
+<div class="input-group">
+    @if (ViewBag.msg != null)
+    {
+        <div class="alert alert-@ViewBag.type" role="alert">
+            @ViewBag.msg
+        </div>
+    }
+</div>

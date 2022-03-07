@@ -1,0 +1,70 @@
+﻿@using MvcEF_CodeFirst.Models;
+@model ViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Home Page</h3>
+
+<div class="container-fluid">
+    <div class="col-md-6">
+        <div>
+            @Html.ActionLink("New Person", "HomePage", "User", null, new { @class = "btn btn-primary" })
+            <br /><br />
+        </div>
+
+
+
+
+
+        <ul class="list-group">
+            <li class="list-group-item-heading">
+                <h3>Person</h3>
+            </li>
+            @foreach (var person in Model.People)
+            {
+                <li class="list-group-item">
+                    @Html.ActionLink("Edit", "Edit", "User", new { id = person.Id }, new { @class = "btn btn-warning btn-xs" })
+                    @Html.ActionLink("Delete", "Delete", "User", new { id = person.Id }, new { @class = "btn btn-danger btn-xs" })
+
+                    <span class="glyphicon glyphicon-user green">
+                    </span>
+
+                    @(person.Name+" "+person.Surname)
+                    (<i>@person.Age</i>)
+                    <br />
+                </li>
+            }
+        </ul>
+    </div>
+
+
+
+
+    <div class="col-md-6">
+        <div>
+            @Html.ActionLink("New Address", "Address", "Address", null, new { @class = "btn btn-primary" })
+            <br /><br />
+        </div>
+
+        <ul class="list-group">
+            <li class="list-group-item-heading"><h3>Address</h3></li>
+            @foreach (var address in Model.Addresses)
+            {
+                <li class="list-group-item">
+
+                    @Html.ActionLink("Edit", "Address", "Address", new { aId = address.Id }, new { @class = "btn btn-warning btn-xs" })
+                    @Html.ActionLink("Delete", "Delete", "Address", new { aId = address.Id }, new { @class = "btn btn-danger btn-xs" })
+
+                    <span class="glyphicon glyphicon-user green">
+                    </span>
+
+                    @address.MailingAddress
+                    (<i>@(address.Person.Name+" "+address.Person.Surname)</i>)
+                    <br />
+                </li>
+            }
+        </ul>
+    </div>
+
+</div>
