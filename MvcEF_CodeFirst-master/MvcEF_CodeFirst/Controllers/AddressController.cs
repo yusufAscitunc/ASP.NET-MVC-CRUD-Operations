@@ -41,12 +41,13 @@ namespace MvcEF_CodeFirst.Controllers
 
         [HttpPost]
         public ActionResult Address(Address address)
-        {
+        {   
             DatabaseContext db = new DatabaseContext();
 
             Person people = db.People.Where(x => x.Id == address.Person.Id).FirstOrDefault();
             address.Person = people;
-            ViewBag.people = TempData["people"];
+            db.Addresses.Add(address);
+
             int res = db.SaveChanges();
             if (res > 0)
             {
@@ -57,6 +58,61 @@ namespace MvcEF_CodeFirst.Controllers
             ViewBag.people = TempData["people"];
 
             return View();
+        }
+
+        public ActionResult Edit(int? addressId)
+        {
+            DatabaseContext db = new DatabaseContext();
+            Address a = new Address();
+
+            if (addressId != null)
+            {
+                a = db.Addresses.Where(x => x.Id == addressId).FirstOrDefault();
+            }
+
+            List<SelectListItem> items =
+                (from person in db.People.ToList()
+                 select new SelectListItem()
+                 {
+                     Text = person.Name + " " + person.Surname,
+                     Value = person.Id.ToString()
+                 }
+                ).ToList();
+            ViewBag.people = items;
+            TempData["people"] = items;
+            
+
+
+            return View(a);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Address newInfo, int? addressId)
+        {
+            DatabaseContext db = new DatabaseContext();
+            Address a = new Address();
+
+            if (addressId != null)
+            {
+                a = db.Addresses.Where(x => x.Id == addressId).First();
+            a.MailingAddress = newInfo.MailingAddress;
+
+            int result = db.SaveChanges();
+
+            if (result > 0) {
+                ViewBag.Message = "Address saved.";
+                ViewBag.type = "success"; 
+                }
+                else { 
+                ViewBag.Message = "An error occured.";
+                ViewBag.type = "danger";
+                }
+            }
+
+
+            ViewBag.people = TempData["people"];
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Delete(int? aId)
@@ -75,15 +131,15 @@ namespace MvcEF_CodeFirst.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteA(int? id)
+        public ActionResult DeleteA(int? aId)
         {
 
             Address a = new Address();
             DatabaseContext db = new DatabaseContext();
 
-            if (id != null)
+            if (aId != null)
             {
-                a = db.Addresses.Where(x => x.Id == id).FirstOrDefault();
+                a = db.Addresses.Where(x => x.Id == aId).FirstOrDefault();
                 db.Addresses.Remove(a);
                 db.SaveChanges();
             }
