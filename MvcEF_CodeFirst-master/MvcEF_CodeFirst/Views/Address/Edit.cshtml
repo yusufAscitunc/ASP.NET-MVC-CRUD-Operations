@@ -1,0 +1,40 @@
+﻿@model Address
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    <div class="input-group">
+
+        <span class="input-group-addon">Address</span>
+        @Html.TextAreaFor(x => x.MailingAddress, new { @class = "form-control", placeholder = "Address", @required = "required", rows =5 })
+
+    </div>
+    <br />
+    <div class="input-group">
+
+        <span class="input-group-addon">Person</span>
+        @Html.DropDownListFor(i => i.Person.Id, (List<SelectListItem>)ViewBag.people, new { @class = "form-control" })
+
+    </div>
+    <br />
+    <div class="input-group">
+
+        <input type="submit" value="Edit" class="btn btn-default" />
+
+    </div>
+    <br />
+    <div class="input-group">
+        @if (ViewBag.msg != null)
+        {
+            <div class="alert alert-@ViewBag.type" role="alert">
+                @ViewBag.msg
+            </div>
+        }
+
+    </div>
+}

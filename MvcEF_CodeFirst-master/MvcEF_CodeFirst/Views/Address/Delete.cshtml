@@ -17,26 +17,6 @@
             <td>@Model.MailingAddress</td>
         </tr>
     </table>
-    <div class="input-group">
-
-        <span class="input-group-addon">Name</span>
-        @Html.TextBoxFor(x => x.Person.Name, new { @class = "form-control", placeholder = "Name", @required = "required" })
-
-    </div>
-    <br />
-    <div class="input-group">
-
-        <span class="input-group-addon">Surname</span>
-        @Html.TextAreaFor(x => x.Person.Surname, new { @class = "form-control", placeholder = " surname", @required = "required" })
-
-    </div>
-    <br />
-    <div class="input-group">
-
-        <span class="input-group-addon">Address</span>
-        @Html.TextBoxFor(x => x.MailingAddress, new { @class = "form-control", placeholder = "Address", @type = "number", min = 18 })
-
-    </div>
     <br />
     <div class="input-group">
 
