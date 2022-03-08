@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<br />
 <h3>Home Page</h3>
+<br /><br /><br />
 
 <div class="container-fluid">
     <div class="col-md-6">
@@ -18,7 +19,7 @@
 
 
         <ul class="list-group">
-            <li class="list-group-item-heading">
+            <li class="list-group-item">
                 <h3>Person</h3>
             </li>
             @foreach (var person in Model.People)
@@ -48,15 +49,15 @@
         </div>
 
         <ul class="list-group">
-            <li class="list-group-item-heading"><h3>Address</h3></li>
+            <li class="list-group-item"><h3>Address</h3></li>
             @foreach (var address in Model.Addresses)
             {
                 <li class="list-group-item">
 
-                    @Html.ActionLink("Edit", "Address", "Address", new { aId = address.Id }, new { @class = "btn btn-warning btn-xs" })
+                    @Html.ActionLink("Edit", "Edit", "Address", new { addressId = address.Id }, new { @class = "btn btn-warning btn-xs" })
                     @Html.ActionLink("Delete", "Delete", "Address", new { aId = address.Id }, new { @class = "btn btn-danger btn-xs" })
 
-                    <span class="glyphicon glyphicon-user green">
+                    <span class="glyphicon glyphicon-home red">
                     </span>
 
                     @address.MailingAddress
